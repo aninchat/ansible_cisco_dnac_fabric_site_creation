@@ -1,0 +1,9 @@
+---
+
+areas:
+        Test1:
+                area_name: 'Test1'
+                parentName: 'Global'
+        Test2:
+                area_name: 'Test2'
+                parentName: 'Global'
