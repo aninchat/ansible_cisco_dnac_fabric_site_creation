@@ -35,3 +35,9 @@ dnac1 : ok=0 changed=0 unreachable=0 failed=1 skipped=0 rescued=0 ignored=0
 ```
 
 Thus, for now, please make sure that you include 'dnac_host' and all necessary information that is required, under every task.
+
+
+
+https://user-images.githubusercontent.com/67307402/123447937-05bfe580-d5f8-11eb-80a7-f021f078ebb9.mp4
+
+
