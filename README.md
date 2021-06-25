@@ -1,6 +1,12 @@
 # ansible_cisco_dnac_fabric_site_creation
 
-In Cisco's DNA Center, and SD-Access, a site hierarchy is created, and used for mapping to a fabric, eventually allowing for fabric enabled sites. This is a fairly repetitive task, something that can be easily automated. 
+In Cisco's DNA Center, and SD-Access, a site hierarchy is created, and used for mapping to a fabric, eventually allowing for fabric enabled sites. This is a fairly repetitive task, something that can be easily automated. Thus, this script does three things:
+
+```
+1. Creates a site hierarchy in DNAC, based on the area, building and floor variable files.
+2. Creates fabrics in DNAC.
+3. Maps sites to fabrics, thus creating fabric enabled sites in DNAC.
+```
 
 This is particularly helpful for partners, or engineers that often build many proof of concept labs and quickly want to spin up a site hierarchy and fabric sites in DNAC. 
 
