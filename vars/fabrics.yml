@@ -1,0 +1,9 @@
+---
+
+fabrics:
+        - fabricName: 'Test1_Fabric'
+          sites:
+                  - siteHierarchy: 'Global/Test1'
+        - fabricName: 'Test2_Fabric'
+          sites:
+                  - siteHierarchy: 'Global/Test2'
