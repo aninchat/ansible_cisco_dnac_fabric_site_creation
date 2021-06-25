@@ -1,0 +1,19 @@
+---
+
+buildings:
+        Test1_Building1:
+                name: 'Building1'
+                parentName: 'Global/Test1'
+                address: 'Test1, Building1'
+        Test1_Building2:
+                name: 'Building2'
+                parentName: 'Global/Test1'
+                address: 'Test1, Building2'
+        Test2_Building1:
+                name: 'Building1'
+                parentName: 'Global/Test2'
+                address: 'Test2, Building1'
+        Test2_Building2:
+                name: 'Building2'
+                parentName: 'Global/Test2'
+                address: 'Test2, Building2'
