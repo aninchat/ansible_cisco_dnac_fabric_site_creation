@@ -4,7 +4,7 @@ In Cisco's DNA Center, and SD-Access, a site hierarchy is created, and used for 
 
 This is particularly helpful for partners, or engineers that often build many proof of concept labs and quickly want to spin up a site hierarchy and fabric sites in DNAC. 
 
-This ansible playbook uses variables that define the following:
+This ansible playbook uses variables that define the following (these variables are under the 'vars' folder):
 
 ```
 1. A site hierarchy, that includes areas, buildings and floors. 
