@@ -1,0 +1,128 @@
+---
+
+- hosts: dnac1
+  gather_facts: no
+  tasks:
+          - name: Including site hierarchy variables for DNAC
+            include_vars:
+                    dir: vars
+
+          - name: Creating areas in DNAC
+            cisco.dnac.site:
+                    state: present
+                    dnac_host: # enter DNAC IP address
+                    dnac_username: # enter DNAC username
+                    dnac_password: # enter DNAC password
+                    dnac_verify: False
+                    site:
+                            area:
+                                    name: "{{ item.value.area_name }}"
+                                    parentName: "{{ item.value.parentName }}"
+                    type: area
+                    validate_response_schema: False
+            register: site_area_detail
+            with_dict: "{{ areas }}"
+
+          - name: Print area details from DNAC
+            debug:
+                    var: site_area_detail
+
+          - name: Pause before creating buildings
+            pause:
+                    seconds: 20
+
+          - name: Creating site buildings in DNAC
+            cisco.dnac.site:
+                    state: present
+                    dnac_host: # enter DNAC IP address
+                    dnac_username: # enter DNAC username
+                    dnac_password: # enter DNAC password
+                    dnac_verify: False
+                    site:
+                            building:
+                                    name: "{{ item.value.name }}"
+                                    parentName: "{{ item.value.parentName }}"
+                                    address: "{{ item.value.address }}"
+                    type: building
+                    validate_response_schema: False
+            register: site_building_detail
+            with_dict: "{{ buildings }}"
+
+          - name: Print site building in DNAC
+            debug:
+                    var: site_building_detail
+
+          - name: Pause before creating floors
+            pause:
+                    seconds: 20
+
+          - name: Creating site floors in DNAC
+            cisco.dnac.site:
+                    state: present
+                    dnac_host: # enter DNAC IP address
+                    dnac_username: # enter DNAC username
+                    dnac_password: # enter DNAC password
+                    dnac_verify: False
+                    site:
+                            floor:
+                                    name: "{{ item.value.name }}"
+                                    parentName: "{{ item.value.parentName }}"
+                                    rfModel: "{{ item.value.rfModel }}"
+                                    width: "{{ item.value.width }}"
+                                    length: "{{ item.value.length }}"
+                                    height: "{{ item.value.height }}"
+                    type: floor
+                    validate_response_schema: False
+            register: site_floor_detail
+            with_dict: "{{ floors }}"
+  
+          - name: Print site floor in DNAC
+            debug:
+                    var: site_floor_detail
+
+          - name: Pause before creating fabrics
+            pause:
+                    seconds: 20
+
+          - name: Creating Fabrics
+            cisco.dnac.sda_fabric:
+                    state: create
+                    dnac_host: # enter DNAC IP address
+                    dnac_username: # enter DNAC username
+                    dnac_password: # enter DNAC password
+                    dnac_verify: False
+                    payload:
+                            - fabricName: "{{ item.0.fabricName }}"
+                    validate_response_schema: False
+            register: fabric_details
+            with_subelements:
+                    - "{{ fabrics }}"
+                    - sites
+
+          - name: Print fabric details
+            debug:
+                    var: fabric_details
+
+          - name: Pause before creating fabric sites
+            pause:
+                    seconds: 20
+
+          - name: Creating fabric sites
+            cisco.dnac.sda_fabric_site:
+                    state: create
+                    dnac_host: # enter DNAC IP address
+                    dnac_username: # enter DNAC username
+                    dnac_password: # enter DNAC password
+                    dnac_verify: False
+                    payload:
+                            - fabricName: "{{ item.0.fabricName }}"
+                              siteNameHierarchy: "{{ item.1.siteHierarchy }}"
+                    validate_response_schema: False
+            register: fabric_site_details
+            with_subelements:
+                    - "{{ fabrics }}"
+                    - sites
+
+          - name: Print fabric site details
+            debug:
+                    var: fabric_site_details
